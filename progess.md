@@ -35,49 +35,49 @@ Lock rendering + motion architecture before adding content
 
 1.1 Repository Initialization
 
-[ ] Create monorepo using pnpm or turborepo
+[x] Create monorepo using pnpm or turborepo
 
-[ ] Define packages:
+[x] Define packages:
 
-[ ] /apps/web (Next.js frontend)
+[x] /apps/web (Next.js frontend)
 
-[ ] /packages/engine (Three.js abstractions)
+[x] /packages/engine (Three.js abstractions)
 
-[ ] /packages/audio (Web Audio API layer)
+[x] /packages/audio (Web Audio API layer)
 
-[ ] /packages/state (global state machine)
+[x] /packages/state (global state machine)
 
-[ ] /packages/ui (minimal UI primitives)
+[x] /packages/ui (minimal UI primitives)
 
 
 
 1.2 Tooling & Frameworks
 
-[ ] Install core stack:
+[x] Install core stack:
 
-[ ] Next.js (App Router)
+[x] Next.js (App Router)
 
-[ ] Three.js
+[x] Three.js
 
-[ ] React Three Fiber (R3F)
+[x] React Three Fiber (R3F)
 
-[ ] Zustand (state management)
+[x] Zustand (state management)
 
-[ ] Tailwind (only for minimal UI overlays)
+[x] Tailwind (only for minimal UI overlays)
 
 
-[ ] Configure ESLint + Prettier
+[x] Configure ESLint + Prettier
 
-[ ] Enable strict TypeScript mode
+[x] Enable strict TypeScript mode
 
 
 1.3 Environment Configuration
 
-[ ] Setup .env structure:
+[x] Setup .env structure:
 
-[ ] NEXT_PUBLIC_ASSET_BASE_URL
+[x] NEXT_PUBLIC_ASSET_BASE_URL
 
-[ ] NEXT_PUBLIC_AUDIO_ENABLED
+[x] NEXT_PUBLIC_AUDIO_ENABLED
 
 
 [ ] Configure asset CDN (Cloudflare / S3)
