@@ -9,7 +9,7 @@ Critical Path Items (Blockers if delayed):
 
 [x] Rendering engine setup (Three.js + scene lifecycle)
 
-[ ] Continuous environment streaming (desert + train)
+[x] Continuous environment streaming (desert + train)
 
 [ ] Motion system (non-camera-based human movement)
 
@@ -114,9 +114,9 @@ Rendering Engine
 
 [ ] Lighting system (time-based transitions)
 
-[ ] Terrain renderer (infinite desert illusion)
+[x] Terrain renderer (infinite desert illusion)
 
-[ ] Train system (modular wagon instancing)
+[x] Train system (modular wagon instancing)
 
 
 Motion System
@@ -208,20 +208,20 @@ PHASE 1 — CORE ENGINE (BLOCKING)
 
 3.2 Infinite Desert System
 
-[ ] Create tiled terrain chunks
+[x] Create tiled terrain chunks
 
-[ ] Implement chunk recycling (infinite scroll illusion)
+[x] Implement chunk recycling (infinite scroll illusion)
 
 [ ] Apply procedural noise for variation
 
 
 3.3 Train System
 
-[ ] Create wagon mesh (low-poly optimized)
+[x] Create wagon mesh (low-poly optimized)
 
-[ ] Use instancing for 200+ wagons
+[x] Use instancing for 200+ wagons
 
-[ ] Implement continuous movement loop
+[x] Implement continuous movement loop
 
 
 

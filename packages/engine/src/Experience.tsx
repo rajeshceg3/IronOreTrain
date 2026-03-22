@@ -1,19 +1,18 @@
 import React from 'react';
 import { Canvas } from '@react-three/fiber';
+import { Desert } from './Desert';
+import { Train } from './Train';
 
 export function ExperienceScene() {
   return (
     <>
-      <fog attach="fog" args={['#000000', 5, 100]} />
+      <fog attach="fog" args={['#000000', 10, 300]} />
 
       <ambientLight intensity={0.5} />
       <directionalLight position={[10, 10, 10]} intensity={1} />
 
-      {/* Basic scene content just to verify rendering */}
-      <mesh position={[0, 0, -5]}>
-        <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial color="hotpink" />
-      </mesh>
+      <Desert />
+      <Train />
     </>
   );
 }
