@@ -7,7 +7,7 @@ progress.md — Mauritania Iron Ore Train Experience
 
 Critical Path Items (Blockers if delayed):
 
-[ ] Rendering engine setup (Three.js + scene lifecycle)
+[x] Rendering engine setup (Three.js + scene lifecycle)
 
 [ ] Continuous environment streaming (desert + train)
 
@@ -197,13 +197,13 @@ PHASE 1 — CORE ENGINE (BLOCKING)
 
 3.1 Rendering Foundation
 
-[ ] Initialize Three.js scene
+[x] Initialize Three.js scene
 
-[ ] Setup camera (fixed human-eye height)
+[x] Setup camera (fixed human-eye height)
 
-[ ] Disable default orbit controls
+[x] Disable default orbit controls
 
-[ ] Implement fog for depth illusion
+[x] Implement fog for depth illusion
 
 
 3.2 Infinite Desert System
