@@ -1,0 +1,9 @@
+{
+  "name": "@iron-ore-train/state",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "private": true,
+  "dependencies": {
+    "zustand": "^5.0.12"
+  }
+}
