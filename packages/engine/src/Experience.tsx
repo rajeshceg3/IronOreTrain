@@ -2,6 +2,7 @@ import React from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Desert } from './Desert';
 import { Train } from './Train';
+import { CameraController } from './CameraController';
 
 export function ExperienceScene() {
   return (
@@ -13,6 +14,7 @@ export function ExperienceScene() {
 
       <Desert />
       <Train />
+      <CameraController />
     </>
   );
 }

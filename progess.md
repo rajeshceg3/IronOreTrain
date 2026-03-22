@@ -11,11 +11,11 @@ Critical Path Items (Blockers if delayed):
 
 [x] Continuous environment streaming (desert + train)
 
-[ ] Motion system (non-camera-based human movement)
+[x] Motion system (non-camera-based human movement)
 
 [ ] Audio engine (positional + reactive)
 
-[ ] State-driven experience phases (arrival → reflection)
+[x] State-driven experience phases (arrival → reflection)
 
 
 Failure Impact:
@@ -121,33 +121,33 @@ Rendering Engine
 
 Motion System
 
-[ ] Head movement mapping (mouse/touch → rotation)
+[x] Head movement mapping (mouse/touch → rotation)
 
-[ ] Forward drift mechanic (scroll → velocity)
+[x] Forward drift mechanic (scroll → velocity)
 
-[ ] Constraint system (no free flight)
+[x] Constraint system (no free flight)
 
 
 State System
 
-[ ] Define states:
+[x] Define states:
 
-[ ] ARRIVAL
+[x] ARRIVAL
 
-[ ] ORIENTATION
+[x] ORIENTATION
 
-[ ] BOARDING
+[x] BOARDING
 
-[ ] EXPLORATION
+[x] EXPLORATION
 
-[ ] DISCOVERY
+[x] DISCOVERY
 
-[ ] NIGHT
+[x] NIGHT
 
-[ ] REFLECTION
+[x] REFLECTION
 
 
-[ ] Implement finite state machine (Zustand or XState)
+[x] Implement finite state machine (Zustand or XState)
 
 
 
@@ -231,11 +231,11 @@ PHASE 2 — MOTION & IMMERSION
 
 3.4 Movement System
 
-[ ] Map mouse → head rotation
+[x] Map mouse → head rotation
 
-[ ] Map scroll → forward drift
+[x] Map scroll → forward drift
 
-[ ] Clamp movement to realistic limits
+[x] Clamp movement to realistic limits
 
 
 3.5 Boarding Mechanic
