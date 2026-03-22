@@ -11,15 +11,19 @@ global.ResizeObserver = class ResizeObserver {
 };
 
 describe('ExperienceScene', () => {
-  it('should render a scene with fog and default mesh', async () => {
+  it('should render a scene with fog, Desert (Group), and Train (InstancedMesh)', async () => {
     // Note: We render ExperienceScene instead of Experience
     // because ReactThreeTestRenderer.create already acts as the canvas.
     const renderer = await ReactThreeTestRenderer.create(<ExperienceScene />);
     const scene = renderer.scene;
 
-    // Test if a mesh is present
-    const mesh = scene.children.find((c) => c.type === 'Mesh');
-    expect(mesh).toBeDefined();
+    // Test if Desert group is present
+    const group = scene.children.find((c) => c.type === 'Group');
+    expect(group).toBeDefined();
+
+    // Test if Train InstancedMesh is present
+    const instancedMesh = scene.children.find((c) => c.type === 'InstancedMesh' || c.props.args?.[2] === 200);
+    expect(instancedMesh).toBeDefined();
 
     // Check light elements exist
     const lights = scene.children.filter((c) => c.type === 'AmbientLight' || c.type === 'DirectionalLight');

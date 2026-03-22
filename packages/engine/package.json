@@ -4,6 +4,7 @@
   "main": "src/index.ts",
   "private": true,
   "dependencies": {
+    "@iron-ore-train/state": "workspace:*",
     "@react-three/fiber": "^9.5.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
