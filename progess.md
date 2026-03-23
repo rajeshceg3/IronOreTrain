@@ -13,7 +13,7 @@ Critical Path Items (Blockers if delayed):
 
 [x] Motion system (non-camera-based human movement)
 
-[ ] Audio engine (positional + reactive)
+[x] Audio engine (positional + reactive)
 
 [x] State-driven experience phases (arrival → reflection)
 
@@ -159,7 +159,7 @@ State System
 
 [ ] useMotionController()
 
-[ ] useAudioEngine()
+[x] useAudioEngine()
 
 [ ] useEnvironmentTime()
 
@@ -254,11 +254,11 @@ PHASE 3 — AUDIO ENGINE
 
 3.6 Audio Layers
 
-[ ] Wind layer (volume = speed)
+[x] Wind layer (volume = speed)
 
-[ ] Metal layer (loop tied to motion)
+[x] Metal layer (loop tied to motion)
 
-[ ] Engine rumble (low frequency)
+[x] Engine rumble (low frequency)
 
 
 3.7 Positional Audio
