@@ -1,6 +1,10 @@
 {
   "name": "@iron-ore-train/audio",
   "version": "1.0.0",
-  "main": "index.ts",
-  "private": true
+  "main": "src/index.ts",
+  "private": true,
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  }
 }
