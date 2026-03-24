@@ -3,14 +3,28 @@ import { Canvas } from '@react-three/fiber';
 import { Desert } from './Desert';
 import { Train } from './Train';
 import { CameraController } from './CameraController';
+import { useEnvironmentTime } from './useEnvironmentTime';
+
+const SKY_COLORS = {
+  dawn: '#5f7185',
+  day: '#b2c7d8',
+  dusk: '#483a3a',
+  night: '#090c12',
+} as const;
 
 export function ExperienceScene() {
+  const { timeOfDay } = useEnvironmentTime();
+
+  const ambientIntensity = timeOfDay === 'night' ? 0.2 : timeOfDay === 'dusk' ? 0.35 : 0.5;
+  const directionalIntensity = timeOfDay === 'night' ? 0.1 : timeOfDay === 'dusk' ? 0.6 : 1;
+  const fogFar = timeOfDay === 'night' ? 220 : 300;
+
   return (
     <>
-      <fog attach="fog" args={['#000000', 10, 300]} />
+      <fog attach="fog" args={[SKY_COLORS[timeOfDay], 10, fogFar]} />
 
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[10, 10, 10]} intensity={1} />
+      <ambientLight intensity={ambientIntensity} />
+      <directionalLight position={[10, 10, 10]} intensity={directionalIntensity} />
 
       <Desert />
       <Train />
