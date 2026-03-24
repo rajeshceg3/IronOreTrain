@@ -1,5 +1,5 @@
 progress.md — Mauritania Iron Ore Train Experience
-Task completion: ~39% (51/130 tasks)
+Task completion: ~44% (57/130 tasks)
 
 
 ---
@@ -93,11 +93,11 @@ Lock rendering + motion architecture before adding content
 
 2.1 System Boundaries
 
-[ ] Rendering Layer (Three.js)
+[x] Rendering Layer (Three.js)
 
-[ ] Interaction Layer (input → motion mapping)
+[x] Interaction Layer (input → motion mapping)
 
-[ ] State Engine (experience phases)
+[x] State Engine (experience phases)
 
 [ ] Audio Engine (environmental sound)
 
@@ -111,9 +111,9 @@ Lock rendering + motion architecture before adding content
 
 Rendering Engine
 
-[ ] Scene manager (single persistent scene)
+[x] Scene manager (single persistent scene)
 
-[ ] Lighting system (time-based transitions)
+[x] Lighting system (time-based transitions)
 
 [x] Terrain renderer (infinite desert illusion)
 
@@ -156,13 +156,13 @@ State System
 
 2.3 API Contracts (Internal Only)
 
-[ ] useExperienceState()
+[x] useExperienceState()
 
-[ ] useMotionController()
+[x] useMotionController()
 
 [x] useAudioEngine()
 
-[ ] useEnvironmentTime()
+[x] useEnvironmentTime()
 
 
 
@@ -536,4 +536,3 @@ CORE SUCCESS METRIC
 
 
 ---
-
