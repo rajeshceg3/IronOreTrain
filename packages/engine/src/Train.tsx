@@ -5,7 +5,9 @@ import { useExperienceStore } from '@iron-ore-train/state';
 
 export function Train() {
   const meshRef = useRef<THREE.InstancedMesh>(null);
-  const state = useExperienceStore((state) => state.state);
+  const state = useExperienceStore((store) => store.state);
+  const setIsTrainAligned = useExperienceStore((store) => store.setIsTrainAligned);
+  const isTrainAligned = useExperienceStore((store) => store.isTrainAligned);
 
   const wagonCount = 200;
   const wagonLength = 12; // approximate length of an ore wagon
@@ -19,7 +21,7 @@ export function Train() {
       case 'ORIENTATION':
         return 5; // slowing down as it nears
       case 'BOARDING':
-        return 2; // slow passing by to board
+        return isTrainAligned ? 0 : 2; // stop when aligned to board
       case 'EXPLORATION':
       case 'DISCOVERY':
       case 'NIGHT':
@@ -48,7 +50,22 @@ export function Train() {
   useFrame((_, delta) => {
     if (meshRef.current && trainSpeed > 0) {
       // Move train forward towards user
-      trainOffset.current -= trainSpeed * delta;
+      let nextOffset = trainOffset.current - trainSpeed * delta;
+
+      if (state === 'BOARDING' && !isTrainAligned) {
+        // Try to snap to the nearest wagon alignment when boarding
+        const segmentLength = wagonLength + wagonSpacing;
+        const remainder = nextOffset % segmentLength;
+        const normalizedRemainder = remainder >= 0 ? remainder : remainder + segmentLength;
+
+        // If we are very close to a segment boundary, snap and stop
+        if (normalizedRemainder < 0.1 || normalizedRemainder > segmentLength - 0.1) {
+          nextOffset = Math.round(nextOffset / segmentLength) * segmentLength;
+          setIsTrainAligned(true);
+        }
+      }
+
+      trainOffset.current = nextOffset;
 
       const dummy = new THREE.Object3D();
       for (let i = 0; i < wagonCount; i++) {

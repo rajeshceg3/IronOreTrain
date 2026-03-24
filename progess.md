@@ -1,5 +1,5 @@
 progress.md — Mauritania Iron Ore Train Experience
-Task completion: ~47% (61/130 tasks)
+Task completion: ~51% (67/130 tasks)
 
 
 ---
@@ -241,9 +241,9 @@ PHASE 2 — MOTION & IMMERSION
 
 3.5 Boarding Mechanic
 
-[ ] Detect wagon alignment with user
+[x] Detect wagon alignment with user
 
-[ ] Trigger velocity sync (user + train)
+[x] Trigger velocity sync (user + train)
 
 [ ] Remove ground reference smoothly
 
@@ -276,11 +276,11 @@ PHASE 4 — EXPERIENCE STATES
 
 3.8 Arrival State
 
-[ ] Fade-in from black
+[x] Fade-in from black
 
-[ ] Gradually introduce horizon
+[x] Gradually introduce horizon
 
-[ ] Delay train visibility
+[x] Delay train visibility
 
 
 3.9 Exploration State
