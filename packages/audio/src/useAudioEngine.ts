@@ -12,6 +12,10 @@ export function useAudioEngine() {
     // state until user interacts with the page.
     engine.init();
 
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     // Setup an interaction listener to resume the AudioContext
     // This handles the browser's autoplay policy.
     const handleInteraction = async () => {

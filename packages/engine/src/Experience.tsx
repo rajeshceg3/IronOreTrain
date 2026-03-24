@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Desert } from './Desert';
 import { Train } from './Train';
 import { CameraController } from './CameraController';
 import { useEnvironmentTime } from './useEnvironmentTime';
+import { AudioController } from './AudioController';
+import { detectWebGLSupport } from './WebGLSupport';
 
 const SKY_COLORS = {
   dawn: '#5f7185',
@@ -29,11 +31,26 @@ export function ExperienceScene() {
       <Desert />
       <Train />
       <CameraController />
+      <AudioController />
     </>
   );
 }
 
 export function Experience() {
+  const [isWebGLSupported, setIsWebGLSupported] = useState(true);
+
+  useEffect(() => {
+    setIsWebGLSupported(detectWebGLSupport());
+  }, []);
+
+  if (!isWebGLSupported) {
+    return (
+      <div className="flex h-full w-full items-center justify-center bg-black text-sm text-gray-300" role="status">
+        WebGL is not available in this browser. Please enable hardware acceleration or use a compatible browser.
+      </div>
+    );
+  }
+
   return (
     <Canvas
       camera={{
