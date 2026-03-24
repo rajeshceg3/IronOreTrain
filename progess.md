@@ -1,5 +1,5 @@
 progress.md — Mauritania Iron Ore Train Experience
-Task completion: ~44% (57/130 tasks)
+Task completion: ~47% (61/130 tasks)
 
 
 ---
@@ -83,7 +83,7 @@ Lock rendering + motion architecture before adding content
 
 [ ] Configure asset CDN (Cloudflare / S3)
 
-[ ] Enable WebGL compatibility fallback detection
+[x] Enable WebGL compatibility fallback detection
 
 
 
@@ -99,7 +99,7 @@ Lock rendering + motion architecture before adding content
 
 [x] State Engine (experience phases)
 
-[ ] Audio Engine (environmental sound)
+[x] Audio Engine (environmental sound)
 
 [ ] Content Layer (text + events)
 
@@ -264,9 +264,9 @@ PHASE 3 — AUDIO ENGINE
 
 3.7 Positional Audio
 
-[ ] Adjust audio based on camera direction
+[x] Adjust audio based on camera direction
 
-[ ] Reduce sound when user is still
+[x] Reduce sound when user is still
 
 
 
