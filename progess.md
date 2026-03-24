@@ -1,4 +1,5 @@
 progress.md — Mauritania Iron Ore Train Experience
+Task completion: ~39% (51/130 tasks)
 
 
 ---
@@ -431,11 +432,11 @@ Mitigation: aggressive mesh optimization
 
 6.1 CI/CD Pipeline
 
-[ ] Setup GitHub Actions:
+[x] Setup GitHub Actions:
 
-[ ] Lint + type check
+[x] Lint + type check
 
-[ ] Build validation
+[x] Build validation
 
 [ ] Asset upload to CDN
 
