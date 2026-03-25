@@ -1,5 +1,5 @@
 progress.md — Mauritania Iron Ore Train Experience
-Task completion: ~51% (67/130 tasks)
+Task completion: ~56% (73/130 tasks)
 
 
 ---
@@ -213,7 +213,7 @@ PHASE 1 — CORE ENGINE (BLOCKING)
 
 [x] Implement chunk recycling (infinite scroll illusion)
 
-[ ] Apply procedural noise for variation
+[x] Apply procedural noise for variation
 
 
 3.3 Train System
@@ -245,7 +245,7 @@ PHASE 2 — MOTION & IMMERSION
 
 [x] Trigger velocity sync (user + train)
 
-[ ] Remove ground reference smoothly
+[x] Remove ground reference smoothly
 
 
 
@@ -285,16 +285,16 @@ PHASE 4 — EXPERIENCE STATES
 
 3.9 Exploration State
 
-[ ] Enable full motion system
+[x] Enable full motion system
 
-[ ] Trigger environmental effects
+[x] Trigger environmental effects
 
 
 3.10 Night Transition
 
-[ ] Gradual sky shader change
+[x] Gradual sky shader change
 
-[ ] Introduce stars (GPU-efficient)
+[x] Introduce stars (GPU-efficient)
 
 
 
