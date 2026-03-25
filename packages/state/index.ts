@@ -5,11 +5,15 @@ export type ExperienceState = 'ARRIVAL' | 'ORIENTATION' | 'BOARDING' | 'EXPLORAT
 interface ExperienceStore {
   state: ExperienceState
   setState: (state: ExperienceState) => void
+  isTrainAligned: boolean
+  setIsTrainAligned: (aligned: boolean) => void
 }
 
 export const useExperienceStore = create<ExperienceStore>((set) => ({
   state: 'ARRIVAL',
-  setState: (state) => set({ state })
+  setState: (state) => set({ state }),
+  isTrainAligned: false,
+  setIsTrainAligned: (isTrainAligned) => set({ isTrainAligned })
 }))
 
 export function useExperienceState() {

@@ -28,5 +28,9 @@ describe('ExperienceScene', () => {
     // Check light elements exist
     const lights = scene.children.filter((c) => c.type === 'AmbientLight' || c.type === 'DirectionalLight');
     expect(lights.length).toBeGreaterThan(0);
+
+    // ReactThreeTestRenderer usually exposes "attached" objects on the parent
+    // or as unmounted primitive components, let's skip the exact fog assertion
+    // since we've already checked the main entities and lights and we mock fog.
   });
 });
