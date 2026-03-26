@@ -30,12 +30,35 @@ export function useMotionController() {
       camera.rotation.x = THREE.MathUtils.lerp(camera.rotation.x, targetRotation.current.x, delta * 5);
       camera.rotation.y = THREE.MathUtils.lerp(camera.rotation.y, targetRotation.current.y, delta * 5);
 
-      targetPosition.current.z += velocity.current * delta;
-      velocity.current = THREE.MathUtils.lerp(velocity.current, 0, delta * 5);
-      targetPosition.current.z = THREE.MathUtils.clamp(targetPosition.current.z, -5, 5);
+      // Based on state, adjust target position smoothly to board the train.
+      // The train is at x=2, y=2.5. We are originally at x=0, y=1.7.
+      const isBoarded = state === 'EXPLORATION' || state === 'DISCOVERY' || state === 'NIGHT' || state === 'REFLECTION';
 
+      if (isBoarded) {
+        targetPosition.current.x = 2;
+        targetPosition.current.y = 2.5; // elevated on wagon
+      } else {
+        targetPosition.current.x = 0;
+        targetPosition.current.y = 1.7; // ground level
+      }
+
+      // Add full motion system constraints and drift
+      if (isBoarded) {
+        // Allow slight Z drift and constrained X shifting within wagon bounds when boarded
+        targetPosition.current.z += velocity.current * delta * 2;
+        targetPosition.current.x += velocity.current * delta * 0.5 * pointerX; // drift laterally based on look direction
+        targetPosition.current.x = THREE.MathUtils.clamp(targetPosition.current.x, 1.0, 3.0); // Stay within wagon width
+        targetPosition.current.z = THREE.MathUtils.clamp(targetPosition.current.z, -5, 5); // Stay within wagon length
+      } else {
+        targetPosition.current.z += velocity.current * delta;
+        targetPosition.current.z = THREE.MathUtils.clamp(targetPosition.current.z, -5, 5);
+      }
+
+      velocity.current = THREE.MathUtils.lerp(velocity.current, 0, delta * 5);
+
+      camera.position.x = THREE.MathUtils.lerp(camera.position.x, targetPosition.current.x, delta * 2);
+      camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetPosition.current.y, delta * 2);
       camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetPosition.current.z, delta * 5);
-      camera.position.y = targetPosition.current.y;
     },
     [setState, state, isTrainAligned]
   );

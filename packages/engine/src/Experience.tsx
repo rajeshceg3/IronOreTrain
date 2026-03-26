@@ -9,6 +9,8 @@ import { useEnvironmentTime } from './useEnvironmentTime';
 import { AudioController } from './AudioController';
 import { detectWebGLSupport } from './WebGLSupport';
 import { useExperienceFlow } from './useExperienceFlow';
+import { Stars } from './Stars';
+import { DustParticles } from './DustParticles';
 
 const SKY_COLORS = {
   dawn: '#5f7185',
@@ -21,6 +23,7 @@ export function ExperienceScene() {
   const { timeOfDay } = useEnvironmentTime();
   const state = useExperienceStore((store) => store.state);
   const fogRef = useRef<THREE.Fog>(null);
+  const bgRef = useRef<THREE.Color>(new THREE.Color(SKY_COLORS['dawn']));
   useExperienceFlow();
 
   const ambientIntensity = timeOfDay === 'night' ? 0.2 : timeOfDay === 'dusk' ? 0.35 : 0.5;
@@ -37,12 +40,19 @@ export function ExperienceScene() {
       } else {
         fogRef.current.far = THREE.MathUtils.lerp(fogRef.current.far, targetFogFar, delta * 2);
       }
+      // Smoothly animate fog color
+      fogRef.current.color.lerp(new THREE.Color(SKY_COLORS[timeOfDay]), delta * 0.5);
+    }
+    // Smoothly animate background color
+    if (bgRef.current) {
+      bgRef.current.lerp(new THREE.Color(SKY_COLORS[timeOfDay]), delta * 0.5);
     }
   });
 
   return (
     <>
-      <fog ref={fogRef} attach="fog" args={[SKY_COLORS[timeOfDay], 10, initialFogFar]} />
+      <color ref={bgRef} attach="background" args={[SKY_COLORS['dawn']]} />
+      <fog ref={fogRef} attach="fog" args={[SKY_COLORS['dawn'], 10, initialFogFar]} />
 
       <ambientLight intensity={ambientIntensity} />
       <directionalLight position={[10, 10, 10]} intensity={directionalIntensity} />
@@ -51,6 +61,8 @@ export function ExperienceScene() {
       <Train />
       <CameraController />
       <AudioController />
+      <Stars />
+      <DustParticles />
     </>
   );
 }

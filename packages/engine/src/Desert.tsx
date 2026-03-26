@@ -13,6 +13,27 @@ export function Desert() {
     []
   );
 
+  const geometry = useMemo(() => {
+    const geo = new THREE.PlaneGeometry(chunkSize * 2, chunkSize, 32, 32);
+    const positions = geo.attributes.position;
+
+    // Simple procedural noise via layered sine waves
+    for (let i = 0; i < positions.count; i++) {
+      const x = positions.getX(i);
+      const y = positions.getY(i); // This is Z in world space since plane is rotated
+
+      // Create rolling dunes
+      let z = 0;
+      z += Math.sin(x * 0.05 + y * 0.05) * 2;
+      z += Math.sin(x * 0.1 - y * 0.08) * 0.5;
+
+      positions.setZ(i, z);
+    }
+
+    geo.computeVertexNormals();
+    return geo;
+  }, [chunkSize]);
+
   const groupRef = useRef<THREE.Group>(null);
 
   // Derive ground speed from the state. We'll simplify and say only during EXPLORATION
@@ -56,10 +77,8 @@ export function Desert() {
           position={[0, -0.5, -index * chunkSize + chunkSize / 2]} // Offset to start slightly behind camera
           rotation={[-Math.PI / 2, 0, 0]}
           material={terrainMaterial}
-        >
-          <planeGeometry args={[chunkSize * 2, chunkSize, 32, 32]} />
-          {/* We would typically add some procedural noise to vertices here */}
-        </mesh>
+          geometry={geometry}
+        />
       ))}
     </group>
   );
