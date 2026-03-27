@@ -32,6 +32,9 @@ importers:
       '@iron-ore-train/engine':
         specifier: workspace:*
         version: link:../../packages/engine
+      '@iron-ore-train/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       next:
         specifier: 16.2.1
         version: 16.2.1(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -122,7 +125,18 @@ importers:
         specifier: ^5.0.12
         version: 5.0.12(@types/react@19.2.14)(react@19.2.4)(use-sync-external-store@1.6.0(react@19.2.4))
 
-  packages/ui: {}
+  packages/ui:
+    dependencies:
+      '@iron-ore-train/state':
+        specifier: workspace:*
+        version: link:../state
+      react:
+        specifier: 19.2.4
+        version: 19.2.4
+    devDependencies:
+      '@types/react':
+        specifier: ^19.2.14
+        version: 19.2.14
 
 packages:
 

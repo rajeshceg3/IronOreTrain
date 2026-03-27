@@ -2,6 +2,7 @@ import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useExperienceStore } from '@iron-ore-train/state';
+import { DiscoverySystem } from './DiscoverySystem';
 
 export function Train() {
   const meshRef = useRef<THREE.InstancedMesh>(null);
@@ -80,9 +81,12 @@ export function Train() {
   });
 
   return (
-    <instancedMesh ref={meshRef} args={[undefined, undefined, wagonCount]}>
-      <boxGeometry args={[3, 2, wagonLength]} />
-      <meshStandardMaterial color="#4a2e2b" roughness={0.8} /> {/* Iron red rust color */}
-    </instancedMesh>
+    <>
+      <instancedMesh ref={meshRef} args={[undefined, undefined, wagonCount]}>
+        <boxGeometry args={[3, 2, wagonLength]} />
+        <meshStandardMaterial color="#4a2e2b" roughness={0.8} /> {/* Iron red rust color */}
+      </instancedMesh>
+      <DiscoverySystem trainOffsetRef={trainOffset} />
+    </>
   );
 }

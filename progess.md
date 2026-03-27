@@ -1,5 +1,5 @@
 progress.md — Mauritania Iron Ore Train Experience
-Task completion: ~56% (73/130 tasks)
+Task completion: ~62% (80/130 tasks)
 
 
 ---
@@ -101,7 +101,7 @@ Lock rendering + motion architecture before adding content
 
 [x] Audio Engine (environmental sound)
 
-[ ] Content Layer (text + events)
+[x] Content Layer (text + events)
 
 
 
@@ -304,20 +304,20 @@ PHASE 5 — DISCOVERY SYSTEM
 
 3.11 Object Placement
 
-[ ] Add cloth asset
+[x] Add cloth asset
 
-[ ] Add footprints decal
+[x] Add footprints decal
 
-[ ] Add distant human silhouette
+[x] Add distant human silhouette
 
 
 3.12 Contextual Text System
 
-[ ] Trigger text on gaze focus
+[x] Trigger text on gaze focus
 
-[ ] Fade in/out (opacity easing)
+[x] Fade in/out (opacity easing)
 
-[ ] Ensure no persistent UI
+[x] Ensure no persistent UI
 
 
 
