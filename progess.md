@@ -1,5 +1,5 @@
 progress.md — Mauritania Iron Ore Train Experience
-Task completion: ~62% (80/130 tasks)
+Task completion: ~64% (83/130 tasks)
 
 
 ---
@@ -388,11 +388,11 @@ Mitigation: aggressive mesh optimization
 
 5.1 Unit Tests
 
-[ ] State machine transitions
+[x] State machine transitions
 
-[ ] Motion calculations
+[x] Motion calculations
 
-[ ] Audio triggers
+[x] Audio triggers
 
 
 5.2 Integration Tests
