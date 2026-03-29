@@ -9,6 +9,7 @@ export function useMotionController() {
   const state = useExperienceStore((store) => store.state);
   const setState = useExperienceStore((store) => store.setState);
   const isTrainAligned = useExperienceStore((store) => store.isTrainAligned);
+  const reducedMotion = useExperienceStore((store) => store.reducedMotion);
   const targetRotation = useRef(new THREE.Euler(0, 0, 0, 'YXZ'));
   const targetPosition = useRef(new THREE.Vector3(0, 1.7, 0));
   const velocity = useRef(0);
@@ -23,8 +24,11 @@ export function useMotionController() {
         setState('EXPLORATION');
       }
 
-      targetRotation.current.y = -pointerX * MAX_PAN;
-      targetRotation.current.x = pointerY * MAX_TILT;
+      const activeMaxPan = reducedMotion ? MAX_PAN * 0.3 : MAX_PAN;
+      const activeMaxTilt = reducedMotion ? MAX_TILT * 0.3 : MAX_TILT;
+
+      targetRotation.current.y = -pointerX * activeMaxPan;
+      targetRotation.current.x = pointerY * activeMaxTilt;
 
       camera.rotation.order = 'YXZ';
       camera.rotation.x = THREE.MathUtils.lerp(camera.rotation.x, targetRotation.current.x, delta * 5);
@@ -59,6 +63,11 @@ export function useMotionController() {
 
       velocity.current = THREE.MathUtils.lerp(velocity.current, 0, delta * 5);
 
+      if (reducedMotion) {
+        // limit Z travel bounds further
+        targetPosition.current.z = THREE.MathUtils.clamp(targetPosition.current.z, -1, 1);
+      }
+
       // Clamp camera directly to avoid lerp overshoots or unconstrained interpolation during fast movements
       camera.position.x = THREE.MathUtils.lerp(camera.position.x, targetPosition.current.x, delta * 2);
       camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetPosition.current.y, delta * 2);
@@ -66,12 +75,12 @@ export function useMotionController() {
 
       if (isBoarded) {
         camera.position.x = THREE.MathUtils.clamp(camera.position.x, 1.0, 3.0);
-        camera.position.z = THREE.MathUtils.clamp(camera.position.z, -5, 5);
+        camera.position.z = THREE.MathUtils.clamp(camera.position.z, reducedMotion ? -1 : -5, reducedMotion ? 1 : 5);
       } else {
-        camera.position.z = THREE.MathUtils.clamp(camera.position.z, -5, 5);
+        camera.position.z = THREE.MathUtils.clamp(camera.position.z, reducedMotion ? -1 : -5, reducedMotion ? 1 : 5);
       }
     },
-    [setState, state, isTrainAligned]
+    [setState, state, isTrainAligned, reducedMotion]
   );
 
   // Only call hooks at top level. We can expose targetPosition for testing

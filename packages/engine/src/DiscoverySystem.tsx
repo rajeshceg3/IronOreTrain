@@ -47,10 +47,12 @@ export function DiscoverySystem({ trainOffsetRef }: { trainOffsetRef: React.Muta
     if (!groupRef.current) return;
 
     // Sync group Z with trainOffset
-    groupRef.current.position.z = trainOffsetRef.current;
+    if (groupRef.current.position) {
+      groupRef.current.position.z = trainOffsetRef.current;
+    }
 
     // Small cloth animation
-    if (clothRef.current) {
+    if (clothRef.current && clothRef.current.rotation) {
       clothRef.current.rotation.y = Math.sin(clock.elapsedTime * 2) * 0.1;
       clothRef.current.rotation.z = Math.cos(clock.elapsedTime * 3) * 0.05;
     }
