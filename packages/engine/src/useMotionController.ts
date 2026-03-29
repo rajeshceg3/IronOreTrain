@@ -46,6 +46,9 @@ export function useMotionController() {
       if (isBoarded) {
         // Allow slight Z drift and constrained X shifting within wagon bounds when boarded
         targetPosition.current.z += velocity.current * delta * 2;
+        // ensure targetPosition is initialized to the boarded position correctly
+        if (targetPosition.current.x === 0) targetPosition.current.x = 2;
+        if (targetPosition.current.y === 1.7) targetPosition.current.y = 2.5;
         targetPosition.current.x += velocity.current * delta * 0.5 * pointerX; // drift laterally based on look direction
         targetPosition.current.x = THREE.MathUtils.clamp(targetPosition.current.x, 1.0, 3.0); // Stay within wagon width
         targetPosition.current.z = THREE.MathUtils.clamp(targetPosition.current.z, -5, 5); // Stay within wagon length
@@ -56,17 +59,27 @@ export function useMotionController() {
 
       velocity.current = THREE.MathUtils.lerp(velocity.current, 0, delta * 5);
 
+      // Clamp camera directly to avoid lerp overshoots or unconstrained interpolation during fast movements
       camera.position.x = THREE.MathUtils.lerp(camera.position.x, targetPosition.current.x, delta * 2);
       camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetPosition.current.y, delta * 2);
       camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetPosition.current.z, delta * 5);
+
+      if (isBoarded) {
+        camera.position.x = THREE.MathUtils.clamp(camera.position.x, 1.0, 3.0);
+        camera.position.z = THREE.MathUtils.clamp(camera.position.z, -5, 5);
+      } else {
+        camera.position.z = THREE.MathUtils.clamp(camera.position.z, -5, 5);
+      }
     },
     [setState, state, isTrainAligned]
   );
 
+  // Only call hooks at top level. We can expose targetPosition for testing
   return useMemo(
     () => ({
       onWheel,
       update,
+      _targetPosition: targetPosition
     }),
     [onWheel, update]
   );
