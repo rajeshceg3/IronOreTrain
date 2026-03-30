@@ -7,7 +7,8 @@ describe('Experience Store', () => {
     useExperienceStore.setState({
       state: 'ARRIVAL',
       isTrainAligned: false,
-      activeText: null
+      activeText: null,
+      isStill: false
     })
   })
 
@@ -31,6 +32,12 @@ describe('Experience Store', () => {
     expect(useExperienceStore.getState().activeText).toBeNull()
     useExperienceStore.getState().setActiveText('Discovery found')
     expect(useExperienceStore.getState().activeText).toBe('Discovery found')
+  })
+
+  it('should initialize and update isStill', () => {
+    expect(useExperienceStore.getState().isStill).toBe(false)
+    useExperienceStore.getState().setIsStill(true)
+    expect(useExperienceStore.getState().isStill).toBe(true)
   })
 
   it('can transition through all states sequentially', () => {

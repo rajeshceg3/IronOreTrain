@@ -9,9 +9,11 @@ export function useMotionController() {
   const state = useExperienceStore((store) => store.state);
   const setState = useExperienceStore((store) => store.setState);
   const isTrainAligned = useExperienceStore((store) => store.isTrainAligned);
+  const setIsStill = useExperienceStore((store) => store.setIsStill);
   const targetRotation = useRef(new THREE.Euler(0, 0, 0, 'YXZ'));
   const targetPosition = useRef(new THREE.Vector3(0, 1.7, 0));
   const velocity = useRef(0);
+  const previousPointer = useRef({ x: 0, y: 0 });
 
   const onWheel = useCallback((deltaY: number) => {
     velocity.current -= deltaY * 0.005;
@@ -70,8 +72,20 @@ export function useMotionController() {
       } else {
         camera.position.z = THREE.MathUtils.clamp(camera.position.z, -5, 5);
       }
+
+      // Check stillness
+      const pointerDeltaX = Math.abs(pointerX - previousPointer.current.x);
+      const pointerDeltaY = Math.abs(pointerY - previousPointer.current.y);
+      const isCurrentlyStill = Math.abs(velocity.current) < 0.01 && pointerDeltaX < 0.001 && pointerDeltaY < 0.001;
+
+      if (useExperienceStore.getState().isStill !== isCurrentlyStill) {
+        setIsStill(isCurrentlyStill);
+      }
+
+      previousPointer.current.x = pointerX;
+      previousPointer.current.y = pointerY;
     },
-    [setState, state, isTrainAligned]
+    [setState, state, isTrainAligned, setIsStill]
   );
 
   // Only call hooks at top level. We can expose targetPosition for testing

@@ -19,6 +19,24 @@ describe('useMotionController', () => {
     expect(result.current.update).toBeDefined();
   });
 
+  it('should update isStill to true when there is no velocity and no pointer movement', () => {
+    const { result } = renderHook(() => useMotionController());
+    const camera = new THREE.PerspectiveCamera();
+
+    result.current.update(camera, 0, 0, 0.1);
+
+    expect(useExperienceStore.getState().isStill).toBe(true);
+  });
+
+  it('should update isStill to false when there is pointer movement', () => {
+    const { result } = renderHook(() => useMotionController());
+    const camera = new THREE.PerspectiveCamera();
+
+    result.current.update(camera, 1, 0.5, 0.1);
+
+    expect(useExperienceStore.getState().isStill).toBe(false);
+  });
+
   it('should update camera rotation based on pointer input', () => {
     const { result } = renderHook(() => useMotionController());
     const camera = new THREE.PerspectiveCamera();
