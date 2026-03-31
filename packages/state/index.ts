@@ -9,6 +9,8 @@ interface ExperienceStore {
   setIsTrainAligned: (aligned: boolean) => void
   activeText: string | null
   setActiveText: (text: string | null) => void
+  isStill: boolean
+  setIsStill: (isStill: boolean) => void
 }
 
 export const useExperienceStore = create<ExperienceStore>((set) => ({
@@ -17,7 +19,9 @@ export const useExperienceStore = create<ExperienceStore>((set) => ({
   isTrainAligned: false,
   setIsTrainAligned: (isTrainAligned) => set({ isTrainAligned }),
   activeText: null,
-  setActiveText: (activeText) => set({ activeText })
+  setActiveText: (activeText) => set({ activeText }),
+  isStill: false,
+  setIsStill: (isStill) => set({ isStill })
 }))
 
 export function useExperienceState() {
