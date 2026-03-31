@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
+import { useExperienceStore } from '@iron-ore-train/state';
 import { AudioEngine } from '../../audio/src/AudioEngine';
 
 const MAX_HEAD_ROTATION = Math.PI / 4;
@@ -10,6 +11,7 @@ function clamp01(value: number) {
 
 export function AudioController() {
   const [isReady, setIsReady] = useState(false);
+  const isStill = useExperienceStore((state) => state.isStill);
   const engineRef = useRef<AudioEngine>(AudioEngine.getInstance());
   const previousZ = useRef(0);
 
@@ -49,14 +51,18 @@ export function AudioController() {
     previousZ.current = camera.position.z;
 
     const normalizedSpeed = clamp01(deltaZ / Math.max(delta, 0.0001));
-    const stillnessDampening = normalizedSpeed < 0.03 ? 0.35 : 1;
+
+    // Dampen audio when moving slowly OR when completely still (no head movement + no speed)
+    const movingSlowlyDampening = normalizedSpeed < 0.03 ? 0.35 : 1;
+    const stillnessDampening = isStill ? 0.2 : movingSlowlyDampening;
+
     const pan = Math.max(-1, Math.min(1, camera.rotation.y / MAX_HEAD_ROTATION));
 
     const engine = engineRef.current;
     engine.setPosition(pan);
     engine.setWindIntensity(clamp01((0.2 + normalizedSpeed * 0.8) * stillnessDampening));
     engine.setMetalIntensity(clamp01((0.15 + normalizedSpeed * 0.5) * stillnessDampening));
-    engine.setEngineIntensity(clamp01(0.25 + normalizedSpeed * 0.45));
+    engine.setEngineIntensity(clamp01((0.25 + normalizedSpeed * 0.45) * (isStill ? 0.5 : 1))); // Engine rumble also softens when completely still
   });
 
   return null;
