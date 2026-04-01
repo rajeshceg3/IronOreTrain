@@ -2,6 +2,11 @@ import { create } from 'zustand'
 
 export type ExperienceState = 'ARRIVAL' | 'ORIENTATION' | 'BOARDING' | 'EXPLORATION' | 'DISCOVERY' | 'NIGHT' | 'REFLECTION'
 
+export interface Settings {
+  reducedMotion: boolean
+  subtitles: boolean
+}
+
 interface ExperienceStore {
   state: ExperienceState
   setState: (state: ExperienceState) => void
@@ -11,6 +16,10 @@ interface ExperienceStore {
   setActiveText: (text: string | null) => void
   isStill: boolean
   setIsStill: (isStill: boolean) => void
+  settings: Settings
+  setSettings: (settings: Partial<Settings>) => void
+  isContextLost: boolean
+  setIsContextLost: (isContextLost: boolean) => void
 }
 
 export const useExperienceStore = create<ExperienceStore>((set) => ({
@@ -21,7 +30,14 @@ export const useExperienceStore = create<ExperienceStore>((set) => ({
   activeText: null,
   setActiveText: (activeText) => set({ activeText }),
   isStill: false,
-  setIsStill: (isStill) => set({ isStill })
+  setIsStill: (isStill) => set({ isStill }),
+  settings: {
+    reducedMotion: false,
+    subtitles: true
+  },
+  setSettings: (newSettings) => set((state) => ({ settings: { ...state.settings, ...newSettings } })),
+  isContextLost: false,
+  setIsContextLost: (isContextLost) => set({ isContextLost })
 }))
 
 export function useExperienceState() {

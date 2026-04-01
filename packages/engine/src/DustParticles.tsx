@@ -5,12 +5,14 @@ import { useExperienceStore } from '@iron-ore-train/state';
 
 export function DustParticles() {
   const state = useExperienceStore((store) => store.state);
+  const settings = useExperienceStore((store) => store.settings);
   const meshRef = useRef<THREE.InstancedMesh>(null);
 
   const particleCount = 200;
 
   // Set ground speed equivalent to use in Desert to represent wind/movement
   const speed = useMemo(() => {
+    const reducedMotion = settings.reducedMotion;
     switch (state) {
       case 'ARRIVAL':
       case 'ORIENTATION':
@@ -20,11 +22,11 @@ export function DustParticles() {
       case 'DISCOVERY':
       case 'NIGHT':
       case 'REFLECTION':
-        return 15; // Fast horizontal wind when boarded
+        return reducedMotion ? 7.5 : 15; // Fast horizontal wind when boarded
       default:
         return 0;
     }
-  }, [state]);
+  }, [state, settings.reducedMotion]);
 
   const particlesData = useMemo(() => {
     return Array.from({ length: particleCount }, () => ({

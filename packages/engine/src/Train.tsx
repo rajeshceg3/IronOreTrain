@@ -15,14 +15,17 @@ export function Train() {
   const wagonSpacing = 1;
   const totalLength = wagonCount * (wagonLength + wagonSpacing);
 
+  const settings = useExperienceStore((store) => store.settings);
+
   const trainSpeed = useMemo(() => {
+    const reducedMotion = settings.reducedMotion;
     switch (state) {
       case 'ARRIVAL':
-        return 10; // approaching
+        return reducedMotion ? 5 : 10; // approaching
       case 'ORIENTATION':
-        return 5; // slowing down as it nears
+        return reducedMotion ? 2.5 : 5; // slowing down as it nears
       case 'BOARDING':
-        return isTrainAligned ? 0 : 2; // stop when aligned to board
+        return isTrainAligned ? 0 : (reducedMotion ? 1 : 2); // stop when aligned to board
       case 'EXPLORATION':
       case 'DISCOVERY':
       case 'NIGHT':
@@ -31,7 +34,7 @@ export function Train() {
       default:
         return 0;
     }
-  }, [state]);
+  }, [state, isTrainAligned, settings.reducedMotion]);
 
   const trainOffset = useRef(1000); // Start far away
 

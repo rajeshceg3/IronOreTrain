@@ -5,6 +5,7 @@ import { useExperienceStore } from '@iron-ore-train/state';
 
 export function Desert() {
   const state = useExperienceStore((state) => state.state);
+  const settings = useExperienceStore((state) => state.settings);
 
   const chunkSize = 100;
   const chunkCount = 5;
@@ -39,21 +40,22 @@ export function Desert() {
   // Derive ground speed from the state. We'll simplify and say only during EXPLORATION
   // and beyond does it move noticeably.
   const groundSpeed = useMemo(() => {
+    const reducedMotion = settings.reducedMotion;
     switch (state) {
       case 'ARRIVAL':
       case 'ORIENTATION':
         return 0; // The user stands still, train approaches
       case 'BOARDING':
-        return 2; // Speed up
+        return reducedMotion ? 1 : 2; // Speed up
       case 'EXPLORATION':
       case 'DISCOVERY':
       case 'NIGHT':
       case 'REFLECTION':
-        return 10;
+        return reducedMotion ? 5 : 10;
       default:
         return 0;
     }
-  }, [state]);
+  }, [state, settings.reducedMotion]);
 
   useFrame((_, delta) => {
     if (groupRef.current && groundSpeed > 0) {

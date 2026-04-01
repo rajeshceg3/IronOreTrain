@@ -8,7 +8,9 @@ describe('Experience Store', () => {
       state: 'ARRIVAL',
       isTrainAligned: false,
       activeText: null,
-      isStill: false
+      isStill: false,
+      settings: { reducedMotion: false, subtitles: true },
+      isContextLost: false
     })
   })
 
@@ -46,5 +48,19 @@ describe('Experience Store', () => {
       useExperienceStore.getState().setState(state)
       expect(useExperienceStore.getState().state).toBe(state)
     });
+  })
+
+  it('should initialize and update settings', () => {
+    expect(useExperienceStore.getState().settings).toEqual({ reducedMotion: false, subtitles: true })
+    useExperienceStore.getState().setSettings({ reducedMotion: true })
+    expect(useExperienceStore.getState().settings).toEqual({ reducedMotion: true, subtitles: true })
+    useExperienceStore.getState().setSettings({ subtitles: false })
+    expect(useExperienceStore.getState().settings).toEqual({ reducedMotion: true, subtitles: false })
+  })
+
+  it('should initialize and update isContextLost', () => {
+    expect(useExperienceStore.getState().isContextLost).toBe(false)
+    useExperienceStore.getState().setIsContextLost(true)
+    expect(useExperienceStore.getState().isContextLost).toBe(true)
   })
 })

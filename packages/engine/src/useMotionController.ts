@@ -21,12 +21,17 @@ export function useMotionController() {
 
   const update = useCallback(
     (camera: THREE.Camera, pointerX: number, pointerY: number, delta: number) => {
+      const reducedMotion = useExperienceStore.getState().settings.reducedMotion;
+
       if (state === 'BOARDING' && targetPosition.current.z < -2 && isTrainAligned) {
         setState('EXPLORATION');
       }
 
-      targetRotation.current.y = -pointerX * MAX_PAN;
-      targetRotation.current.x = pointerY * MAX_TILT;
+      const currentMaxPan = reducedMotion ? MAX_PAN * 0.5 : MAX_PAN;
+      const currentMaxTilt = reducedMotion ? MAX_TILT * 0.5 : MAX_TILT;
+
+      targetRotation.current.y = -pointerX * currentMaxPan;
+      targetRotation.current.x = pointerY * currentMaxTilt;
 
       camera.rotation.order = 'YXZ';
       camera.rotation.x = THREE.MathUtils.lerp(camera.rotation.x, targetRotation.current.x, delta * 5);
@@ -51,7 +56,9 @@ export function useMotionController() {
         // ensure targetPosition is initialized to the boarded position correctly
         if (targetPosition.current.x === 0) targetPosition.current.x = 2;
         if (targetPosition.current.y === 1.7) targetPosition.current.y = 2.5;
-        targetPosition.current.x += velocity.current * delta * 0.5 * pointerX; // drift laterally based on look direction
+
+        const driftFactor = reducedMotion ? 0.05 : 0.5;
+        targetPosition.current.x += velocity.current * delta * driftFactor * pointerX; // drift laterally based on look direction
         targetPosition.current.x = THREE.MathUtils.clamp(targetPosition.current.x, 1.0, 3.0); // Stay within wagon width
         targetPosition.current.z = THREE.MathUtils.clamp(targetPosition.current.z, -5, 5); // Stay within wagon length
       } else {
