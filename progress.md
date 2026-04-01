@@ -1,4 +1,4 @@
-progress.md — Mauritania Iron Ore Train Experience
+# progress.md — Mauritania Iron Ore Train Experience
 Task completion: ~65% (84/130 tasks)
 
 
@@ -520,7 +520,7 @@ FINAL VALIDATION CHECKLIST
 
 [ ] Motion feels continuous, not mechanical
 
-[ ] Audio reacts to user stillness
+[x] Audio reacts to user stillness
 
 [ ] Experience can run 10+ minutes without fatigue
 
