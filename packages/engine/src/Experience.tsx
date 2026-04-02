@@ -12,6 +12,8 @@ import { useExperienceFlow } from './useExperienceFlow';
 import { Stars } from './Stars';
 import { DustParticles } from './DustParticles';
 import { SystemManager } from './SystemManager';
+import { StateLogger } from './StateLogger';
+import { PerformanceMonitor } from './PerformanceMonitor';
 
 const SKY_COLORS = {
   dawn: '#5f7185',
@@ -65,6 +67,8 @@ export function ExperienceScene() {
       <Stars />
       <DustParticles />
       <SystemManager />
+      <StateLogger />
+      <PerformanceMonitor />
     </>
   );
 }
