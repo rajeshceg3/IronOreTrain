@@ -1,5 +1,5 @@
 # progress.md — Mauritania Iron Ore Train Experience
-Task completion: ~65% (84/130 tasks)
+Task completion: ~68% (89/130 tasks)
 
 
 ---
@@ -359,11 +359,11 @@ Mitigation: aggressive mesh optimization
 
 4.3 Accessibility
 
-[ ] Add optional reduced motion mode
+[x] Add optional reduced motion mode
 
-[ ] Add subtitle toggle for text
+[x] Add subtitle toggle for text
 
-[ ] Ensure contrast ratios for text
+[x] Ensure contrast ratios for text
 
 
 
@@ -419,7 +419,7 @@ Mitigation: aggressive mesh optimization
 
 [ ] Mobile browser compatibility
 
-[ ] WebGL context loss recovery
+[x] WebGL context loss recovery
 
 
 

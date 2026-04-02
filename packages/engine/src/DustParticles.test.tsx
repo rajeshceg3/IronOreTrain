@@ -4,7 +4,7 @@ import ReactThreeTestRenderer from '@react-three/test-renderer';
 import { DustParticles } from './DustParticles';
 
 vi.mock('@iron-ore-train/state', () => ({
-  useExperienceStore: (selector: any) => selector({ state: 'EXPLORATION' }),
+  useExperienceStore: (selector: any) => selector({ state: 'EXPLORATION', settings: { reducedMotion: false } }),
 }));
 
 describe('DustParticles', () => {

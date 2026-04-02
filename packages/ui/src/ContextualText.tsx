@@ -3,6 +3,7 @@ import { useExperienceStore } from '@iron-ore-train/state';
 
 export function ContextualText() {
   const activeText = useExperienceStore((store) => store.activeText);
+  const settings = useExperienceStore((store) => store.settings);
   const [displayedText, setDisplayedText] = useState<string | null>(null);
   const [isFading, setIsFading] = useState(false);
 
@@ -20,16 +21,16 @@ export function ContextualText() {
     }
   }, [activeText]);
 
-  if (!displayedText) return null;
+  if (!displayedText || !settings.subtitles) return null;
 
   return (
     <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center p-8">
       <div
-        className={`text-gray-300 font-sans text-xl tracking-wide max-w-lg text-center transition-opacity duration-1000 ease-in-out ${
-          isFading ? 'opacity-80' : 'opacity-0'
+        className={`bg-black/40 px-6 py-3 rounded text-gray-300 font-sans text-xl tracking-wide max-w-lg text-center transition-opacity duration-1000 ease-in-out ${
+          isFading ? 'opacity-100' : 'opacity-0'
         }`}
         style={{
-          textShadow: '0 2px 4px rgba(0,0,0,0.5)',
+          textShadow: '0 2px 4px rgba(0,0,0,0.8)',
         }}
       >
         {displayedText}

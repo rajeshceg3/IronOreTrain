@@ -11,6 +11,7 @@ import { detectWebGLSupport } from './WebGLSupport';
 import { useExperienceFlow } from './useExperienceFlow';
 import { Stars } from './Stars';
 import { DustParticles } from './DustParticles';
+import { SystemManager } from './SystemManager';
 
 const SKY_COLORS = {
   dawn: '#5f7185',
@@ -63,6 +64,7 @@ export function ExperienceScene() {
       <AudioController />
       <Stars />
       <DustParticles />
+      <SystemManager />
     </>
   );
 }
@@ -70,6 +72,7 @@ export function ExperienceScene() {
 export function Experience() {
   const [isWebGLSupported, setIsWebGLSupported] = useState(true);
   const state = useExperienceStore((store) => store.state);
+  const isContextLost = useExperienceStore((store) => store.isContextLost);
 
   useEffect(() => {
     setIsWebGLSupported(detectWebGLSupport());
@@ -85,6 +88,11 @@ export function Experience() {
 
   return (
     <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
+      {isContextLost && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black text-white p-8 text-center text-sm font-sans tracking-widest">
+          EXPERIENCE INTERRUPTED. WEBGL CONTEXT LOST. PLEASE RELOAD THE PAGE.
+        </div>
+      )}
       <div
         className="pointer-events-none absolute inset-0 z-10 bg-black transition-opacity"
         style={{

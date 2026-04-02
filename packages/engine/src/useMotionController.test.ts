@@ -119,4 +119,19 @@ describe('useMotionController', () => {
     // Directly check targetPosition just in case camera lerping is weird
     expect(result.current._targetPosition.current.y).toBeCloseTo(2.5, 1);
   });
+
+  it('should scale down camera rotation when reducedMotion is true', () => {
+    useExperienceStore.setState({ settings: { reducedMotion: true, subtitles: true } });
+    const { result } = renderHook(() => useMotionController());
+    const camera = new THREE.PerspectiveCamera();
+
+    result.current.update(camera, 1, 0.5, 0.1);
+
+    // MAX_PAN is PI/4 (0.785), scaled by 0.5 is 0.392
+    // target is -1 * 0.392 = -0.392. Lerp factor is 5 * 0.1 = 0.5
+    // so it should move half as much as the non-reduced motion case.
+    expect(camera.rotation.y).toBeGreaterThan(-0.4);
+    expect(camera.rotation.y).toBeLessThan(0);
+  });
+
 });
