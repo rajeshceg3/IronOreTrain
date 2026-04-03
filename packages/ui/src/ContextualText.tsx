@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useExperienceStore } from '@iron-ore-train/state';
+import DOMPurify from 'dompurify';
 
 export function ContextualText() {
   const activeText = useExperienceStore((store) => store.activeText);
@@ -9,7 +10,7 @@ export function ContextualText() {
 
   useEffect(() => {
     if (activeText) {
-      setDisplayedText(activeText);
+      setDisplayedText(DOMPurify.sanitize(activeText));
       // Small delay before fading in to ensure smooth transition
       const timer = setTimeout(() => setIsFading(true), 50);
       return () => clearTimeout(timer);
@@ -32,9 +33,8 @@ export function ContextualText() {
         style={{
           textShadow: '0 2px 4px rgba(0,0,0,0.8)',
         }}
-      >
-        {displayedText}
-      </div>
+        dangerouslySetInnerHTML={{ __html: displayedText }}
+      />
     </div>
   );
 }

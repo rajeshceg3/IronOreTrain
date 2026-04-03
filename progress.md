@@ -1,5 +1,5 @@
 # progress.md — Mauritania Iron Ore Train Experience
-Task completion: ~68% (89/130 tasks)
+Task completion: ~71% (92/130 tasks)
 
 
 ---
@@ -347,7 +347,7 @@ Mitigation: aggressive mesh optimization
 
 4.2 Security
 
-[ ] Sanitize all dynamic text content
+[x] Sanitize all dynamic text content
 
 [ ] Disable dev tools in production build (optional hardening)
 
@@ -373,9 +373,9 @@ Mitigation: aggressive mesh optimization
 
 [ ] Integrate logging (Sentry)
 
-[ ] Track FPS + performance metrics
+[x] Track FPS + performance metrics
 
-[ ] Log state transitions
+[x] Log state transitions
 
 
 
