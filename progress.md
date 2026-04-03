@@ -406,9 +406,9 @@ Mitigation: aggressive mesh optimization
 
 5.3 E2E Tests (Playwright)
 
-[ ] Full experience flow (arrival → reflection)
+[x] Full experience flow (arrival → reflection)
 
-[ ] No UI artifacts appear unexpectedly
+[x] No UI artifacts appear unexpectedly
 
 [ ] Performance remains stable > 30 FPS
 
@@ -514,7 +514,7 @@ Switch to low LOD mode
 
 FINAL VALIDATION CHECKLIST
 
-[ ] No visible UI elements by default
+[x] No visible UI elements by default
 
 [ ] No abrupt transitions
 
