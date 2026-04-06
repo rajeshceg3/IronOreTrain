@@ -1,5 +1,5 @@
 # progress.md — Mauritania Iron Ore Train Experience
-Task completion: ~71% (92/130 tasks)
+Task completion: ~75% (97/130 tasks)
 
 
 ---
@@ -330,13 +330,13 @@ PHASE 5 — DISCOVERY SYSTEM
 
 4.1 Performance (CRITICAL)
 
-[ ] Use instancing for all repeated meshes
+[x] Use instancing for all repeated meshes
 
-[ ] Limit draw calls < 150
+[x] Limit draw calls < 150
 
-[ ] Implement LOD (Level of Detail)
+[x] Implement LOD (Level of Detail)
 
-[ ] Cap FPS to 60
+[x] Cap FPS to 60
 
 
 Risk: Frame drops break immersion
@@ -410,7 +410,7 @@ Mitigation: aggressive mesh optimization
 
 [x] No UI artifacts appear unexpectedly
 
-[ ] Performance remains stable > 30 FPS
+[x] Performance remains stable > 30 FPS
 
 
 5.4 Edge Cases

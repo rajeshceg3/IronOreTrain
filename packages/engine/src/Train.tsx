@@ -76,6 +76,16 @@ export function Train() {
         // Position relative to the train offset
         const zPos = trainOffset.current - i * (wagonLength + wagonSpacing);
         dummy.position.set(2, 0, zPos);
+
+        // Simple LOD / Culling: if it's too far behind or way past the fog, scale to 0
+        // Camera is mostly looking towards negative Z, and fog far is ~300 max
+        // We'll cull wagons that are Z < -350 or Z > 50
+        if (zPos < -350 || zPos > 50) {
+          dummy.scale.set(0, 0, 0);
+        } else {
+          dummy.scale.set(1, 1, 1);
+        }
+
         dummy.updateMatrix();
         meshRef.current.setMatrixAt(i, dummy.matrix);
       }
