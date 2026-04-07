@@ -60,7 +60,7 @@ export function useMotionController() {
         const driftFactor = reducedMotion ? 0.05 : 0.5;
         targetPosition.current.x += velocity.current * delta * driftFactor * pointerX; // drift laterally based on look direction
         targetPosition.current.x = THREE.MathUtils.clamp(targetPosition.current.x, 1.0, 3.0); // Stay within wagon width
-        targetPosition.current.z = THREE.MathUtils.clamp(targetPosition.current.z, -5, 5); // Stay within wagon length
+        targetPosition.current.z = THREE.MathUtils.clamp(targetPosition.current.z, -250, 5); // Allow drifting back along the train length
       } else {
         targetPosition.current.z += velocity.current * delta;
         targetPosition.current.z = THREE.MathUtils.clamp(targetPosition.current.z, -5, 5);
@@ -75,7 +75,7 @@ export function useMotionController() {
 
       if (isBoarded) {
         camera.position.x = THREE.MathUtils.clamp(camera.position.x, 1.0, 3.0);
-        camera.position.z = THREE.MathUtils.clamp(camera.position.z, -5, 5);
+        camera.position.z = THREE.MathUtils.clamp(camera.position.z, -250, 5);
       } else {
         camera.position.z = THREE.MathUtils.clamp(camera.position.z, -5, 5);
       }

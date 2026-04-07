@@ -29,6 +29,25 @@ export function ExperienceScene() {
   const bgRef = useRef<THREE.Color>(new THREE.Color(SKY_COLORS['dawn']));
   useExperienceFlow();
 
+  // Limit FPS to ~60
+  const lastTimeRef = useRef(0);
+  const fpsInterval = 1 / 60;
+
+  useFrame((state, delta) => {
+    // If enough time hasn't passed, do nothing (only works if frameloop='never' and we manually render,
+    // OR we just let it run but this doesn't fully skip if we don't control the render loop.
+    // However, r3f useFrame can't easily skip rendering without taking over the render loop.
+    // Taking over the render loop:
+    const elapsed = state.clock.getElapsedTime();
+    if (elapsed - lastTimeRef.current < fpsInterval) {
+      return;
+    }
+    lastTimeRef.current = elapsed;
+
+    // We only render when enough time has passed. We must disable auto-render.
+    state.gl.render(state.scene, state.camera);
+  }, 1); // priority 1 takes over the render loop
+
   const ambientIntensity = timeOfDay === 'night' ? 0.2 : timeOfDay === 'dusk' ? 0.35 : 0.5;
   const directionalIntensity = timeOfDay === 'night' ? 0.1 : timeOfDay === 'dusk' ? 0.6 : 1;
   const targetFogFar = timeOfDay === 'night' ? 220 : 300;
