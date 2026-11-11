@@ -1,3 +1,9 @@
 packages:
   - 'apps/*'
   - 'packages/*'
+minimumReleaseAgeExclude:
+  - minimatch@11.0.7
+overrides:
+  vite: 8.3.7
+  fflate: 0.8.3
+  minimatch: 11.0.7
