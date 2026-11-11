@@ -1,4 +1,5 @@
 'use client'
+import { createOreSoundscape } from './sound/oreSoundscape'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
@@ -426,59 +427,22 @@ function Scene({
     </>
   )
 }
-function useSound(enabled: boolean) {
+function useSound(enabled: boolean, chapter: number) {
+  const scapeRef = useRef<ReturnType<typeof createOreSoundscape> | null>(null)
   useEffect(() => {
     if (!enabled) return
-    const ctx = new AudioContext()
-    const gain = ctx.createGain()
-    gain.gain.value = 0.075
-    gain.connect(ctx.destination)
-    const filter = ctx.createBiquadFilter()
-    filter.type = 'lowpass'
-    filter.frequency.value = 420
-    filter.connect(gain)
-    const b = ctx.createBuffer(1, ctx.sampleRate * 4, ctx.sampleRate)
-    const a = b.getChannelData(0)
-    let last = 0
-    for (let i = 0; i < a.length; i++) {
-      last = (last + Math.random() * 0.1 - 0.05) / 1.02
-      a[i] = last * 3
-    }
-    const noise = ctx.createBufferSource()
-    noise.buffer = b
-    noise.loop = true
-    noise.connect(filter)
-    noise.start()
-    const hum = ctx.createOscillator()
-    hum.type = 'triangle'
-    hum.frequency.value = 45
-    const hg = ctx.createGain()
-    hg.gain.value = 0.16
-    hum.connect(hg)
-    hg.connect(gain)
-    hum.start()
-    const tick = () => {
-      if (ctx.state === 'closed') return
-      const o = ctx.createOscillator(),
-        g = ctx.createGain()
-      o.frequency.setValueAtTime(100, ctx.currentTime)
-      o.frequency.exponentialRampToValueAtTime(32, ctx.currentTime + 0.1)
-      g.gain.setValueAtTime(0.05, ctx.currentTime)
-      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12)
-      o.connect(g)
-      g.connect(gain)
-      o.start()
-      o.stop(ctx.currentTime + 0.13)
-    }
-    const t = setInterval(tick, 600)
-    void ctx.resume()
+    const scape = createOreSoundscape()
+    scapeRef.current = scape
+    void scape.start(chapter)
     return () => {
-      clearInterval(t)
-      noise.stop()
-      hum.stop()
-      void ctx.close()
+      scape.stop()
+      scapeRef.current = null
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enabled])
+  useEffect(() => {
+    scapeRef.current?.setChapter(chapter)
+  }, [chapter])
 }
 export function WorldExperience() {
   const [chapter, setChapter] = useState(0),
@@ -487,7 +451,7 @@ export function WorldExperience() {
     [sound, setSound] = useState(false),
     [dark, setDark] = useState(false),
     [notes, setNotes] = useState(true)
-  useSound(sound)
+  useSound(sound, chapter)
   useEffect(() => {
     const q = matchMedia('(prefers-reduced-motion: reduce)')
     setMotion(!q.matches)
