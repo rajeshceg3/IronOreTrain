@@ -567,33 +567,6 @@ export function WorldExperience() {
               {notes ? 'Hide notes' : 'Show notes'}
             </button>
           </div>
-          <details>
-            <summary>About this scene & sources</summary>
-            <p>
-              A stylised seven-part virtual journey, not a simulator, timetable
-              or travel guide. Motion animates drifting dust. Sound is generated
-              wind, rail rhythm and engine hum, not a field recording.
-            </p>
-            <p>
-              Keyboard: focus the scene, use arrows to rotate, + / - to zoom,
-              Home to reset. Reset view restores this chapter's camera.
-            </p>
-            <a
-              href="https://snim.com/sites/default/files/SNIM-Annual%20report%202023_En.pdf"
-              target="_blank"
-              rel="noreferrer"
-            >
-              SNIM annual report 2023
-            </a>
-            <span> · </span>
-            <a
-              href="https://www.eib.org/en/projects/all/20240336"
-              target="_blank"
-              rel="noreferrer"
-            >
-              EIB railway project
-            </a>
-          </details>
         </div>
       </footer>
     </main>

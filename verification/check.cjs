@@ -102,7 +102,7 @@ try {
             minFont: Math.min(
               ...[
                 ...document.querySelectorAll(
-                  'button,select,p,a,label,summary,span',
+                  'button,select,p,a,label,span',
                 ),
               ]
                 .filter((e) => e.getClientRects().length)
@@ -126,13 +126,6 @@ try {
         }
         if (dark) await p.click('.settings button:nth-child(3)')
       }
-      await p.click('summary')
-      assert(
-        (await p.$eval('details', (e) => e.textContent)).includes(
-          'not a field recording',
-        ),
-      )
-      await p.click('summary')
       await p.click('.settings button:nth-child(4)')
       assert(!(await p.$('.chapter-story p')))
       await p.click('.settings button:nth-child(4)')

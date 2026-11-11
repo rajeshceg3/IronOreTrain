@@ -153,19 +153,6 @@ a {
   flex: 1;
   white-space: nowrap;
 }
-.journey-actions details {
-  font:
-    14px/1.5 Arial,
-    sans-serif;
-}
-.journey-actions summary {
-  cursor: pointer;
-  padding: 6px 0;
-  min-height: 32px;
-}
-.journey-actions details p {
-  margin: 8px 0;
-}
 .dark {
   background: #242b31;
   color: #fff2dd;
