@@ -2,22 +2,25 @@
   "name": "iron-ore-train",
   "private": true,
   "engines": {
-    "node": ">=18",
-    "pnpm": ">=8"
+    "node": ">=22",
+    "pnpm": ">=12"
   },
   "scripts": {
     "dev": "pnpm -r dev",
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "verify:browser": "node verification/check.cjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@playwright/test": "^1.59.1",
-    "eslint": "^9.39.4",
+    "@playwright/test": "^1.65.0",
+    "eslint": "^10.14.0",
     "prettier": "^3.8.1",
+    "puppeteer-core": "^25.16.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.1",
-    "vitest": "^4.1.0"
-  }
+    "typescript-eslint": "^8.72.2",
+    "vitest": "^5.1.0"
+  },
+  "packageManager": "pnpm@12.18.0"
 }

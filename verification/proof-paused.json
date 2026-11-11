@@ -1,0 +1,380 @@
+[
+  {
+    "name": "320-paused-light-0",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 393
+  },
+  {
+    "name": "320-paused-light-1",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 393
+  },
+  {
+    "name": "320-paused-light-2",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 393
+  },
+  {
+    "name": "320-paused-light-3",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 393
+  },
+  {
+    "name": "320-paused-light-4",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 393
+  },
+  {
+    "name": "320-paused-light-5",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 393
+  },
+  {
+    "name": "320-paused-light-6",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 416
+  },
+  {
+    "name": "320-paused-dark-0",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 393
+  },
+  {
+    "name": "320-paused-dark-1",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 393
+  },
+  {
+    "name": "320-paused-dark-2",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 393
+  },
+  {
+    "name": "320-paused-dark-3",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 393
+  },
+  {
+    "name": "320-paused-dark-4",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 393
+  },
+  {
+    "name": "320-paused-dark-5",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 393
+  },
+  {
+    "name": "320-paused-dark-6",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 416
+  },
+  {
+    "name": "390-paused-light-0",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 411
+  },
+  {
+    "name": "390-paused-light-1",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 411
+  },
+  {
+    "name": "390-paused-light-2",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 411
+  },
+  {
+    "name": "390-paused-light-3",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 388
+  },
+  {
+    "name": "390-paused-light-4",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 388
+  },
+  {
+    "name": "390-paused-light-5",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 411
+  },
+  {
+    "name": "390-paused-light-6",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 411
+  },
+  {
+    "name": "390-paused-dark-0",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 411
+  },
+  {
+    "name": "390-paused-dark-1",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 411
+  },
+  {
+    "name": "390-paused-dark-2",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 411
+  },
+  {
+    "name": "390-paused-dark-3",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 388
+  },
+  {
+    "name": "390-paused-dark-4",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 388
+  },
+  {
+    "name": "390-paused-dark-5",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 411
+  },
+  {
+    "name": "390-paused-dark-6",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 411
+  },
+  {
+    "name": "1440-paused-light-0",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 568
+  },
+  {
+    "name": "1440-paused-light-1",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 568
+  },
+  {
+    "name": "1440-paused-light-2",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 568
+  },
+  {
+    "name": "1440-paused-light-3",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 568
+  },
+  {
+    "name": "1440-paused-light-4",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 568
+  },
+  {
+    "name": "1440-paused-light-5",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 568
+  },
+  {
+    "name": "1440-paused-light-6",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 568
+  },
+  {
+    "name": "1440-paused-dark-0",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 568
+  },
+  {
+    "name": "1440-paused-dark-1",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 568
+  },
+  {
+    "name": "1440-paused-dark-2",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 568
+  },
+  {
+    "name": "1440-paused-dark-3",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 568
+  },
+  {
+    "name": "1440-paused-dark-4",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 568
+  },
+  {
+    "name": "1440-paused-dark-5",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 568
+  },
+  {
+    "name": "1440-paused-dark-6",
+    "drag": true,
+    "reset": true,
+    "keyboard": true,
+    "overflow": false,
+    "minFont": 14,
+    "sceneHeight": 568
+  }
+]
