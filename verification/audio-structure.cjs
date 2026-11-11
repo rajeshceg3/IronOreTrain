@@ -2,7 +2,11 @@
 // window, no DC offset; seamless-loop check on the raw wind and chug beds.
 const fs = require('fs'), assert = require('assert')
 const { execSync } = require('child_process')
-const AOUT = process.env.AUDIO_OUT || '/downloads/ore-audio'
+function resolveOut() {
+  if (process.env.AUDIO_OUT) return process.env.AUDIO_OUT
+  try { fs.mkdirSync('/downloads/ore-audio', { recursive: true }); return '/downloads/ore-audio' } catch { return 'verification/output/ore-audio' }
+}
+const AOUT = resolveOut()
 if (!fs.existsSync(AOUT + '/ore-night.wav'))
   execSync('node --experimental-strip-types scripts/render-preview.mjs', { stdio: 'inherit' })
 function wav(path) {

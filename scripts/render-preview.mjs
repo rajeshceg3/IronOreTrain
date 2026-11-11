@@ -3,7 +3,11 @@
 import { writeFileSync, mkdirSync } from 'fs'
 const pcm = await import('../packages/engine/src/sound/pcm.ts')
 const SR = 44100, SECONDS = 45, MASTER = 0.25
-const OUT = process.env.AUDIO_OUT || '/downloads/ore-audio'
+function resolveOut() {
+  if (process.env.AUDIO_OUT) return process.env.AUDIO_OUT
+  try { mkdirSync('/downloads/ore-audio', { recursive: true }); return '/downloads/ore-audio' } catch { return 'verification/output/ore-audio' }
+}
+const OUT = resolveOut()
 
 function loopInto(dest, bed, gain) {
   for (let i = 0; i < dest.length; i++) dest[i] += bed[i % bed.length] * gain
