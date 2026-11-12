@@ -40,6 +40,10 @@ try {
           value: motion ? 'no-preference' : 'reduce',
         },
       ])
+      if (process.env.PINNED !== '0')
+        await p.evaluateOnNewDocument(() => {
+          try { localStorage.setItem('ironore-chrome-pin', '1') } catch {}
+        })
       await p.evaluateOnNewDocument(() => {
         window.__contexts = []
         const AC = window.AudioContext
@@ -55,12 +59,12 @@ try {
       })
       await p.waitForSelector('canvas[data-camera]')
       assert.equal(await p.$eval('h1', (e) => e.textContent), 'Iron & sand')
-      assert.equal(await p.$$eval('select option', (es) => es.length), 7)
+      assert.equal(await p.$$eval('[data-chapter]', (es) => es.length), 7)
       assert.equal(await p.evaluate(() => window.__contexts.length), 0)
       for (const dark of [false, true]) {
         if (dark) await p.click('.settings button:nth-child(3)')
         for (let i = 0; i < 7; i++) {
-          await p.select('select', '' + i)
+          await p.click('[data-chapter="' + i + '"]')
           await new Promise((r) => setTimeout(r, 100))
           const base = await p.$eval('canvas', (e) => e.dataset.camera)
           const r = await p.$eval('canvas', (e) => {
@@ -149,6 +153,28 @@ try {
       await p.waitForFunction(
         () => window.__contexts.at(-1)?.state === 'closed',
       )
+      if (process.env.QUIET !== '0') {
+        const q = await b.newPage()
+        await q.evaluateOnNewDocument(() => { try { localStorage.removeItem('ironore-chrome-pin') } catch {} })
+        await q.setViewport({ width, height: 844 })
+        const qerr = []
+        q.on('pageerror', (e) => qerr.push(e.message))
+        await q.goto(process.env.URL || 'http://127.0.0.1:8820', { waitUntil: 'networkidle0' })
+        await q.waitForSelector('canvas[data-camera]')
+        await new Promise((r) => setTimeout(r, 3400))
+        assert.equal(await q.$eval('.train-header', (e) => getComputedStyle(e).visibility), 'hidden', 'chrome retired after greeting')
+        assert.ok(await q.$('.chrome-hint'), 'hint appears when chrome retires')
+        await q.screenshot({ path: dir + '/' + width + '-quiet.png' })
+        await q.click('.chrome-hint')
+        await new Promise((r) => setTimeout(r, 300))
+        assert.equal(await q.$eval('.train-header', (e) => getComputedStyle(e).visibility), 'visible', 'hint wakes chrome')
+        await q.screenshot({ path: dir + '/' + width + '-woken.png' })
+        await q.keyboard.press('Escape')
+        await new Promise((r) => setTimeout(r, 500))
+        assert.equal(await q.$eval('.train-header', (e) => getComputedStyle(e).visibility), 'hidden', 'Escape retires chrome')
+        assert.deepEqual(qerr, [])
+        await q.close()
+      }
       assert.deepEqual(errors, [])
       await p.close()
       console.log(
