@@ -1,6 +1,6 @@
 'use client'
 import { createOreSoundscape } from './sound/oreSoundscape'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
@@ -444,6 +444,44 @@ function useSound(enabled: boolean, chapter: number) {
     scapeRef.current?.setChapter(chapter)
   }, [chapter])
 }
+const PIN_KEY = 'ironore-chrome-pin'
+const RETIRE_MS = 2600
+const TOP_ZONE = 96
+const BOTTOM_ZONE = 150
+
+const InkPrev = (
+  <svg className="ink-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.8 5.2 C 11 8.2, 8.3 10.4, 6.2 12 C 8.4 13.7, 11.1 15.9, 14.9 18.8" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+)
+const InkNext = (
+  <svg className="ink-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9.2 5.2 C 13 8.2, 15.7 10.4, 17.8 12 C 15.6 13.7, 12.9 15.9, 9.1 18.8" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+)
+const InkMotion = ({ paused }: { paused: boolean }) => (
+  <svg className="ink-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">{paused
+    ? <path d="M8 5.4 C 8 4.8, 8.6 4.5, 9 4.9 L 18.5 11.4 C 18.9 11.8, 18.9 12.4, 18.4 12.7 L 9.1 19.2 C 8.6 19.5, 8 19.2, 8 18.6 Z" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinejoin="round"/>
+    : <path d="M9 5.6 L 8.9 18.4 M 15.1 5.5 L 15 18.5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>}</svg>
+)
+const InkSound = ({ on }: { on: boolean }) => (
+  <svg className="ink-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.5 C 4 9, 4.4 8.7, 5 8.7 L 8 8.8 L 12.6 4.9 C 13 4.6, 13.5 4.8, 13.5 5.4 L 13.4 18.6 C 13.4 19.2, 12.9 19.5, 12.5 19.1 L 8 15.3 L 5 15.4 C 4.4 15.4, 4 15, 4 14.5 Z" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round"/>{on
+    ? <><path d="M16.5 9 C 17.8 10.2, 17.9 13.9, 16.6 15.1" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/><path d="M19 6.6 C 21.4 9, 21.5 15.2, 19.1 17.5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/></>
+    : <path d="M16.5 9.4 L 21 14.6 M 21 9.4 L 16.5 14.6" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/>}</svg>
+)
+const InkTheme = ({ dark }: { dark: boolean }) => (
+  <svg className="ink-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">{dark
+    ? <path d="M15.6 4.2 C 11.4 4.9, 8.3 8.3, 8.4 12.3 C 8.5 16, 11.2 18.9, 14.8 19.5 C 13.1 20.4, 11.1 20.7, 9.2 20.2 C 5.6 19.3, 3.2 16.1, 3.4 12.4 C 3.6 8.5, 6.7 5.3, 10.6 4.6 C 12.3 4.3, 14 4.1, 15.6 4.2 Z" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round"/>
+    : <><circle cx="12" cy="12" r="4.4" fill="none" stroke="currentColor" strokeWidth="2.2"/><path d="M12 2.8 L 12 5.2 M 12 18.8 L 12 21.2 M 2.8 12 L 5.2 12 M 18.8 12 L 21.2 12 M 5.5 5.5 L 7.2 7.2 M 16.8 16.8 L 18.5 18.5 M 18.5 5.5 L 16.8 7.2 M 7.2 16.8 L 5.5 18.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/></>}</svg>
+)
+const InkNotes = ({ on }: { on: boolean }) => (
+  <svg className="ink-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 4.2 C 5 3.5, 5.6 3, 6.3 3.1 L 17.8 3.2 C 18.5 3.2, 19 3.8, 19 4.5 L 18.9 19.6 C 18.9 20.3, 18.3 20.9, 17.6 20.8 L 6.2 20.7 C 5.5 20.7, 5 20.1, 5 19.4 Z" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round"/>{on
+    ? <path d="M8.2 8 L 15.8 8.1 M 8.1 12 L 15.9 12.1 M 8.2 16 L 13.8 16.1" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    : <path d="M8 8.2 L 16 15.8 M 16 8.2 L 8 15.8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>}</svg>
+)
+const InkPin = ({ pinned }: { pinned: boolean }) => (
+  <svg className="ink-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.5 3.6 L 20.4 9.5 C 20.8 9.9, 20.6 10.6, 20 10.7 L 16.4 11.1 L 13.2 19.6 C 13 20.1, 12.3 20.2, 12 19.8 L 9.7 16.4 L 4.9 21.2 M 3.6 14.5 C 3.4 14, 3.7 13.5, 4.2 13.4 L 12.9 11.2 L 13.3 4 C 13.4 3.4, 14.1 3.2, 14.5 3.6 Z" fill={pinned ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/></svg>
+)
+const SignalFlag = (
+  <svg className="ink-icon flag" viewBox="0 0 26 40" aria-hidden="true" focusable="false"><path d="M6 1.5 L 5.8 38" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"/><path d="M6.2 4.5 C 10.5 3, 15.5 3.4, 19.8 5.2 L 19.5 14.5 C 15.2 12.6, 10.5 12.3, 6.4 13.8 Z" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round"/></svg>
+)
+
 export function WorldExperience() {
   const [chapter, setChapter] = useState(0),
     [reset, setReset] = useState(0),
@@ -459,28 +497,34 @@ export function WorldExperience() {
     q.addEventListener('change', f)
     return () => q.removeEventListener('change', f)
   }, [])
+  // Quiet-by-default chrome: the desert leads; controls visit when called.
+  const [pinned, setPinned] = useState(() => { try { return localStorage.getItem(PIN_KEY) === '1' } catch { return false } })
+  const [chrome, setChrome] = useState(true)
+  const focusWithin = useRef(false), retireTimer = useRef<ReturnType<typeof setTimeout> | null>(null), rootRef = useRef<HTMLElement | null>(null)
+  const retireSoon = useCallback(() => { if (retireTimer.current) clearTimeout(retireTimer.current); retireTimer.current = setTimeout(() => { if (!focusWithin.current) setChrome(false) }, RETIRE_MS) }, [])
+  const wake = useCallback(() => { setChrome(true); retireSoon() }, [retireSoon])
+  useEffect(() => {
+    retireSoon()
+    const onPointerMove = (e: PointerEvent) => { if (e.pointerType === 'touch') return; if (e.clientY < TOP_ZONE || e.clientY > window.innerHeight - BOTTOM_ZONE) wake() }
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { focusWithin.current = false; setChrome(false) } }
+    document.addEventListener('pointermove', onPointerMove); document.addEventListener('keydown', onKey)
+    return () => { document.removeEventListener('pointermove', onPointerMove); document.removeEventListener('keydown', onKey); if (retireTimer.current) clearTimeout(retireTimer.current) }
+  }, [wake, retireSoon])
+  const togglePin = () => setPinned((p) => { const next = !p; try { next ? localStorage.setItem(PIN_KEY, '1') : localStorage.removeItem(PIN_KEY) } catch {}; if (next) setChrome(true); return next })
+  const onChromeFocus = (e: React.FocusEvent) => { const t = e.target as Element; if (t.closest && t.closest('.train-header, .journey-actions, .chrome-hint')) { focusWithin.current = true; if (retireTimer.current) clearTimeout(retireTimer.current); setChrome(true) } }
+  const onChromeBlur = (e: React.FocusEvent) => { if (!rootRef.current?.contains(e.relatedTarget as Node)) { focusWithin.current = false; retireSoon() } }
+  const chromeOn = chrome || pinned
   const c = chapters[chapter]
   return (
-    <main className={'train-app ' + (dark ? 'dark' : '')}>
-      <header className="train-header">
+    <main className={'train-app ' + (dark ? 'dark' : '')} ref={rootRef} onFocusCapture={onChromeFocus} onBlurCapture={onChromeBlur}>
+      {!chromeOn && (
+        <button className="chrome-hint" aria-label="Show controls" onClick={wake}>{SignalFlag}</button>
+      )}
+      <header className={'train-header chrome' + (chromeOn ? ' chrome-on' : '')}>
         <div>
           <h1>Iron & sand</h1>
           <p>The Mauritania ore train</p>
         </div>
-        <label className="chapter-picker">
-          Journey chapter
-          <select
-            aria-label="Journey chapter"
-            value={chapter}
-            onChange={(e) => setChapter(+e.target.value)}
-          >
-            {chapters.map((c, i) => (
-              <option key={c.name} value={i}>
-                {i + 1}. {c.name}
-              </option>
-            ))}
-          </select>
-        </label>
       </header>
       <section className="scene-window" aria-label={c.name + ' scene'}>
         <Canvas
@@ -491,6 +535,14 @@ export function WorldExperience() {
         >
           <Scene chapter={chapter} reset={reset} motion={motion} />
         </Canvas>
+                <nav className={'chapter-trail chrome' + (chromeOn ? ' chrome-on' : '')} role="radiogroup" aria-label="Journey chapter">
+          {chapters.map((c, i) => (
+          <button key={c.name} type="button" data-chapter={i} role="radio" aria-checked={chapter === i} aria-label={c.name} title={c.name} tabIndex={chapter === i ? 0 : -1} className="trail-token milepost" onClick={() => setChapter(i)} onKeyDown={(e) => { if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return; e.preventDefault(); const n = (chapter + (e.key === 'ArrowRight' ? 1 : chapters.length - 1)) % chapters.length; setChapter(n) }}>
+            <svg className="ink-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21.5 L 12 9" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"/><rect x="6.2" y="2.8" width="11.6" height="7.4" rx="2.2" fill="none" stroke="currentColor" strokeWidth="2.2" transform="rotate(-1.5 12 6.5)"/><text x="12" y="8.6" textAnchor="middle" fontSize="6.5" fill="currentColor" stroke="none" fontFamily="inherit">{i + 1}</text></svg>
+          </button>
+        ))}
+        </nav>
+
         <span className="scene-note">
           Illustrated landscape · Drag for 360°
         </span>
@@ -500,35 +552,42 @@ export function WorldExperience() {
           <h2>{c.title}</h2>
           {notes && <p>{c.text}</p>}
         </div>
-        <div className="journey-actions">
+        <div className={'journey-actions chrome' + (chromeOn ? ' chrome-on' : '')}>
           <div className="transport">
             <button
+              className="ink-toggle"
               onClick={() => setChapter((chapter + 6) % 7)}
               aria-label="Previous chapter"
+              title="Previous chapter"
             >
-              ←
+              {InkPrev}
             </button>
-            <span>{chapter + 1} of 7</span>
+            <span className="chapter-count">{chapter + 1} of 7</span>
             <button
+              className="ink-toggle"
               onClick={() => setChapter((chapter + 1) % 7)}
               aria-label="Next chapter"
+              title="Next chapter"
             >
-              →
+              {InkNext}
             </button>
-            <button onClick={() => setReset((x) => x + 1)}>Reset view</button>
+            <button className="ink-toggle" onClick={() => setReset((x) => x + 1)} aria-label="Reset view" title="Reset view"><svg className="ink-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19.2 12.2 C 19.1 16.2, 15.9 19.3, 11.9 19.2 C 8 19.1, 5 16, 5.1 12 C 5.2 8.1, 8.4 5, 12.3 5.1 C 14.7 5.2, 16.8 6.3, 18.1 8.1" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"/><path d="M18.4 4.4 C 18.5 6, 18.4 7.4, 18.2 8.9 C 16.6 8.5, 15.2 8.2, 13.7 8" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
           </div>
           <div className="settings">
-            <button aria-pressed={motion} onClick={() => setMotion(!motion)}>
-              {motion ? 'Pause motion' : 'Play motion'}
+            <button className="ink-toggle" aria-pressed={motion} aria-label={motion ? 'Pause motion' : 'Play motion'} title={motion ? 'Pause motion' : 'Play motion'} onClick={() => setMotion(!motion)}>
+              <InkMotion paused={!motion} />
             </button>
-            <button aria-pressed={sound} onClick={() => setSound(!sound)}>
-              {sound ? 'Sound off' : 'Sound on'}
+            <button className="ink-toggle" aria-pressed={sound} aria-label={sound ? 'Turn sound off' : 'Turn sound on'} title={sound ? 'Sound on' : 'Sound off'} onClick={() => setSound(!sound)}>
+              <InkSound on={sound} />
             </button>
-            <button aria-pressed={dark} onClick={() => setDark(!dark)}>
-              {dark ? 'Light UI' : 'Dark UI'}
+            <button className="ink-toggle" aria-pressed={dark} aria-label={dark ? 'Light controls' : 'Dark controls'} title={dark ? 'Light controls' : 'Dark controls'} onClick={() => setDark(!dark)}>
+              <InkTheme dark={dark} />
             </button>
-            <button aria-pressed={notes} onClick={() => setNotes(!notes)}>
-              {notes ? 'Hide notes' : 'Show notes'}
+            <button className="ink-toggle" aria-pressed={notes} aria-label={notes ? 'Hide notes' : 'Show notes'} title={notes ? 'Hide notes' : 'Show notes'} onClick={() => setNotes(!notes)}>
+              <InkNotes on={notes} />
+            </button>
+            <button className="ink-toggle" aria-pressed={pinned} aria-label={pinned ? 'Let controls retire' : 'Keep controls visible'} title={pinned ? 'Let controls retire' : 'Keep controls visible'} onClick={togglePin}>
+              <InkPin pinned={pinned} />
             </button>
           </div>
         </div>
